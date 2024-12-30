@@ -1,6 +1,5 @@
 import "./App.css";
 
-
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Wrapper from "@/layouts/Wrapper";
 
@@ -12,8 +11,8 @@ import CardList from "@/components/Cards/CardList";
 function App() {
   return (
     <DefaultLayout>
-      <Wrapper>
-        <Navbar />
+      <Navbar />
+      <Wrapper className="mt-12">
         <Hero />
         <InputMain />
         <div id="tabs-dropdown" className="flex justify-between py-4 mt-5">
@@ -27,7 +26,7 @@ function App() {
             <button>Cards</button>
           </div>
         </div>
-        <CardList /> 
+        <CardList />
       </Wrapper>
     </DefaultLayout>
   );

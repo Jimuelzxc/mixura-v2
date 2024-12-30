@@ -1,6 +1,6 @@
-export default function Wrapper({ classname, children }) {
+export default function Wrapper({ className, children }) {
   return (
-    <div id="wrapper" className={`mx-[50px] ${classname}`}>
+    <div id="wrapper" className={`mx-[50px] ${className}`}>
       {children}
     </div>
   );
