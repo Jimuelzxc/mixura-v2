@@ -1,13 +1,17 @@
+import { useEffect } from "react";
 import Card from "./Card";
+import { useCardListStore } from "@/stores/useCardListStore";
+import { AddDataFromLocalStorage } from "@/utils/localstorage";
 export default function CardList() {
-  let data = [1, 2, 3, 4, 5, 6,7,8,9,14,6,6];
-
+  const cards = useCardListStore((state) => state.cards);
+  useEffect(() => {
+    AddDataFromLocalStorage("cards", cards);
+    console.log(cards)
+  }, [cards]);
   return (
-    <div id="card-list" className="columns-3 ">
-      {data.map((value) => {
-        return (
-          <Card /> 
-        );
+    <div id="card-list" className="columns-3 py-10">
+      {cards.map((card) => {
+        return <Card card={card} />;
       })}
     </div>
   );

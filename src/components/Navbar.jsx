@@ -9,7 +9,7 @@ export default function Navbar() {
       null}`}
     >
       <Wrapper className="flex justify-between items-center py-4">
-        <div className="text-[0.9em]">Mixura</div>
+        <div className="text-[0.9em]">mixura</div>
         <div className="border-t border-b h-[6px] border-slate-900 w-[18px] cursor-pointer"></div>
       </Wrapper>
     </div>
