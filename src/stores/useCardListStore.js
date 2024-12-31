@@ -53,31 +53,42 @@ export const useCardListStore = create((set) => ({
   cards: GetDataFromLocalStorage("cards"),
 
   addNewCard: (e, url, callback) => {
-    if (e.key === "Enter") {
-      const urlObj = new URL(url);
-      const isYoutube = isYTLong(urlObj) || isYTShorts(urlObj);
+    // Ensure the key is "Enter" and the url is not empty
+    if (e.key === "Enter" && url.trim() !== "") {
+      // Validate the URL starts with "https://"
+      if (!url.startsWith("https://")) {
+        return; // Exit early if the URL is invalid
+      }
+      try {
+        const urlObj = new URL(url); // Validate and parse the URL
+        const isYoutube = isYTLong(urlObj) || isYTShorts(urlObj);
 
-      if (isImage(url) || isYoutube) {
-        set((state) => ({
-          cards: [
-            ...state.cards,
-            {
-              id: uuidv4(),
-              url: url,
-              details: {
-                title: "",
-                description: "",
-                hashtag: [],
+        if (isImage(url) || isYoutube) {
+          set((state) => ({
+            cards: [
+              ...state.cards,
+              {
+                id: uuidv4(),
+                url: url,
+                details: {
+                  title: "",
+                  description: "",
+                  hashtag: [],
+                },
+                file: {
+                  type: isYoutube ? "video" : "image",
+                  ext: getFileExtension(url, urlObj),
+                },
               },
-              file: {
-                type: isYoutube ? "video" : "image",
-                ext: getFileExtension(url, urlObj),
-              },
-            },
-          ],
-        }));
-        callback();
+            ],
+          }));
+          callback(); // Call the callback after successfully adding
+        }
+      } catch (error) {
+        console.error("Invalid URL provided:", error.message);
       }
     }
+
+    ShowAllCardsFilter: null
   },
 }));

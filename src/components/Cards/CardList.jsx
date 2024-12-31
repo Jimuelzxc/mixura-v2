@@ -11,7 +11,7 @@ export default function CardList() {
   return (
     <div id="card-list" className="columns-3 py-10">
       {cards.map((card) => {
-        return <Card card={card} />;
+        return <Card key={card.id} card={card} />;
       })}
     </div>
   );
