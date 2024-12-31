@@ -7,11 +7,11 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import InputMain from "@/components/InputMain";
 import CardList from "@/components/Cards/CardList";
-import { useEffect, useState } from "react";
 
+import { useTabStore } from "@/stores/useTabStore";
 function App() {
-  const [tabs, setTabs] = useState("")
-  useEffect(() => {console.log(tabs)},[tabs])
+  const selectedTab = useTabStore((state) => state.selectedTab);
+  const setSelectedTab = useTabStore((state) => state.setSelectedTab);
   return (
     <DefaultLayout>
       <Navbar />
@@ -20,9 +20,24 @@ function App() {
         <InputMain />
         <div id="tabs-dropdown" className="flex justify-between py-4 mt-5">
           <div id="tabs" className="flex flex-row gap-4">
-            <button onClick={() => setTabs("all")}>All</button>
-            <button onClick={() => setTabs("images")}>Images</button>
-            <button onClick={() => setTabs("videos")}>Videos</button>
+            <button
+              onClick={() => setSelectedTab("all")}
+              className={`py-1 ${selectedTab === "all" && "border-b border-dark "}`}
+            >
+              All
+            </button>
+            <button
+              onClick={() => setSelectedTab("images")}
+              className={`py-1 ${selectedTab === "images" && "border-b border-dark"}`}
+            >
+              Images
+            </button>
+            <button
+              onClick={() => setSelectedTab("videos")}
+              className={`py-1 ${selectedTab === "videos" && "border-b border-dark"}`}
+            >
+              Videos
+            </button>
           </div>
           <div id="dropdown" className="flex flex-row gap-4">
             <button>Filter</button>

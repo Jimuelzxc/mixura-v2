@@ -13,7 +13,7 @@ export default function DefaultLayout({ className, children }) {
       {children}
       <button
         className={`z-20 drop-shadow-2xl fixed right-0 overflow-hidden border-[2px] border-white/20 bottom-0 m-20 p-1 backdrop-blur-md   bg-white/20 py-6 translate-y-[100px] ease-[cubic-bezier(.86,-0.05,.16,1.26)] duration-300 opacity-0 ${
-          scrollValue > 430 && "translate-y-[-20px] opacity-90"
+          scrollValue > 430 && "translate-y-[-40px] opacity-90"
         }`}
         onClick={handleScrollToTop}
       >
