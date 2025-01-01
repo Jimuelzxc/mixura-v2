@@ -51,7 +51,10 @@ export const useCardListStore = create((set) => ({
     },
   ],
   cards: GetDataFromLocalStorage("cards"),
-
+  previewCard: {},
+  changePreviewCard: (card) => set((state) => ({
+    previewCard: card
+  })),
   addNewCard: (e, url, callback) => {
     // Ensure the key is "Enter" and the url is not empty
     if (e.key === "Enter" && url.trim() !== "") {
