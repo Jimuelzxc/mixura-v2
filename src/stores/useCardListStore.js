@@ -14,9 +14,9 @@ export const useCardListStore = create((set) => ({
       id: uuidv4(),
       url: "https://i.pinimg.com/736x/12/c0/80/12c0802ceb5754828f8767dbe7d53abf.jpg",
       details: {
-        title: "",
+        title: "Astronaut Grandpa",
         description: "",
-        hashtag: [],
+        hashtag: ["graphicdesign", "pattern"],
       },
       file: {
         type: "image",
@@ -27,9 +27,9 @@ export const useCardListStore = create((set) => ({
       id: uuidv4(),
       url: "https://i.pinimg.com/736x/63/55/79/635579156ee4a0b2971a6e4bb3dd3f6e.jpg",
       details: {
-        title: "",
+        title: "Crow",
         description: "",
-        hashtag: [],
+        hashtag: ["graphicdesign", "classic"],
       },
       file: {
         type: "image",
@@ -40,9 +40,9 @@ export const useCardListStore = create((set) => ({
       id: uuidv4(),
       url: "https://i.pinimg.com/736x/ff/ec/e4/ffece47ed72d3eea5977b78048bd9e14.jpg",
       details: {
-        title: "",
+        title: "Y2K ULTRA INSTINCT",
         description: "",
-        hashtag: [],
+        hashtag: ["y2k", "goku"],
       },
       file: {
         type: "image",
@@ -50,8 +50,7 @@ export const useCardListStore = create((set) => ({
       },
     },
   ],
-  cards: GetDataFromLocalStorage("cards"),
-  previewCard: {},
+  cards:  GetDataFromLocalStorage("cards"),
   changePreviewCard: (card) => set((state) => ({
     previewCard: card
   })),

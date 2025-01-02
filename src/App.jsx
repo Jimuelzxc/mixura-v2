@@ -9,13 +9,11 @@ import InputMain from "@/components/InputMain";
 import CardList from "@/components/Cards/CardList";
 
 import { useTabStore } from "@/stores/useTabStore";
-import { useCardListStore } from "@/stores/useCardListStore";
 import { useEffect } from "react";
+import RandomThing from "./components/Random";
 function App() {
   const selectedTab = useTabStore((state) => state.selectedTab);
   const setSelectedTab = useTabStore((state) => state.setSelectedTab);
-  const previewCard = useCardListStore((state) => state.previewCard)
-  useEffect(() => {console.log(previewCard)},[previewCard])
   return (
     <>
       <DefaultLayout>
@@ -57,6 +55,7 @@ function App() {
           </div>
           <CardList />
         </Wrapper>
+        <RandomThing />
       </DefaultLayout>
     </>
   );
