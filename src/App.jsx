@@ -2,15 +2,11 @@ import "./App.css";
 
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Wrapper from "@/layouts/Wrapper";
-
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import InputMain from "@/components/InputMain";
 import CardList from "@/components/Cards/CardList";
-
 import { useTabStore } from "@/stores/useTabStore";
-import { useEffect } from "react";
-import RandomThing from "./components/Random";
 function App() {
   const selectedTab = useTabStore((state) => state.selectedTab);
   const setSelectedTab = useTabStore((state) => state.setSelectedTab);
@@ -55,7 +51,6 @@ function App() {
           </div>
           <CardList />
         </Wrapper>
-        <RandomThing />
       </DefaultLayout>
     </>
   );

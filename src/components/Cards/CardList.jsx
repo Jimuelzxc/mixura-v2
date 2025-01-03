@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import Card from "./Card";
 import { useCardListStore } from "@/stores/useCardListStore";
 import { AddDataFromLocalStorage } from "@/utils/localstorage";
@@ -6,15 +6,15 @@ import { useTabStore } from "@/stores/useTabStore";
 import { useToggleClickOutside } from "@/hooks/useToggleClickOutside";
 import Image from "./Image";
 import Youtube from "./Youtube";
+import { useMainInputStore } from "@/stores/useMainInputStore";
 
 export default function CardList() {
-  const [searchInput, setSearchInput] = useState("");
-
+  const searchInput = useMainInputStore((state) => state.mainInputValue)
   const selectedTab = useTabStore((state) => state.selectedTab);
+  const mainInputMode = useMainInputStore((state) => state.mainInputMode);
   const cards = useCardListStore((state) => state.cardsDefault).filter((card) =>{
-    return card.details.title.toLowerCase().includes(searchInput.toLowerCase()) || card.details.hashtag.some((tag) => tag.includes(searchInput.toLowerCase()))
+    return mainInputMode === "search" ? card.details.title.toLowerCase().includes(searchInput.toLowerCase()) || card.details.hashtag.some((tag) => tag.includes(searchInput.toLowerCase())): card
   });
-  console.log(cards);
   const changePreviewCard = useCardListStore(
     (state) => state.changePreviewCard
   );
@@ -53,14 +53,6 @@ export default function CardList() {
       )}
 
       <div id="card-list" className="columns-3 py-10">
-        <input
-          type="text"
-          className="border border-slate-900 p-2"
-          placeholder="HELLO WORLD"
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
-
         {cards.map((card) => {
           if (
             selectedTab === "all" ||
