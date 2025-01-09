@@ -6,12 +6,31 @@ import { useMainInputStore } from "@/stores/useMainInputStore";
 export default function InputMain() {
   const addNewCard = useCardListStore((state) => state.addNewCard);
   const scrollValue = useScrollStore((state) => state.scrollValue);
-  const mainInputValue = useMainInputStore((state) => state.mainInputValue);
-  const setMainInputValue = useMainInputStore((state) => state.setMainInputValue);
-  const setMainInputMode = useMainInputStore((state) => state.setMainInputMode);
-  const mainInputMode = useMainInputStore((state) => state.mainInputMode);
+  const { mainInputValue, setMainInputValue, setMainInputMode, mainInputMode } =
+    useMainInputStore();
   const mainInputRef = useRef();
-  useEffect(() => { scrollValue === 0 && mainInputRef.current.focus() }, [scrollValue]);
+  useEffect(() => {
+    scrollValue === 0 && mainInputRef.current.focus();
+  }, [scrollValue]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Tab") {
+        // Remove focus from the currently active element
+        event.preventDefault(); // Prevent default tabbing behavior if desired
+        mainInputRef.current.focus()
+        setMainInputMode()
+      }
+    };
+
+    // Add event listener to the document
+    document.addEventListener("keydown", handleKeyDown);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
   return (
     <div
       id="inputMain"
@@ -23,6 +42,7 @@ export default function InputMain() {
       >
         <span className="text-[0.6em]">
           <BiCaretDown />
+
         </span>
         {mainInputMode === "link" && <BiLinkAlt className="text-[1.2em]" />}
         {mainInputMode === "search" && <BiSearch className="text-[1.2em]" />}
@@ -32,14 +52,22 @@ export default function InputMain() {
       </button>
       <input
         type="text"
-        placeholder={mainInputMode === "link" ? "https://i.pinimg.com/736x/09/bf/01/09bf015e78d18f1eb35d5467313a12dd.jpg" : "Search"}
+        placeholder={
+          mainInputMode === "link"
+            ? "https://i.pinimg.com/736x/09/bf/01/09bf015e78d18f1eb35d5467313a12dd.jpg"
+            : "Search"
+        }
         className="flex-1 px-3 focus:outline-none bg-white/0"
         ref={mainInputRef}
         value={mainInputValue}
         onChange={(e) => setMainInputValue(e.target.value)}
-        onKeyDown={(e) =>
-          addNewCard(e, mainInputValue, () => setMainInputValue(""))
-        }
+        onKeyDown={(e) => {
+          if(e.key === "Tab"){
+            console.log("TAB")
+            mainInputRef.current.focus()
+          }
+          addNewCard(e, mainInputValue, () => setMainInputValue(""));
+        }}
       />
       {mainInputValue !== "" && (
         <button
