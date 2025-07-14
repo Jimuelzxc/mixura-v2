@@ -1,5 +1,6 @@
 import Wrapper from "@/layouts/Wrapper";
 import { useToggleClickOutside } from "@/hooks/useToggleClickOutside";
+import { useCreateCardFormStore } from "@/stores/useCreateCardFormStore";
 import Dropdown from "./Dropdown/Dropdown";
 import DropdownTrigger from "./Dropdown/DropdownTrigger";
 import DropdownMenu from "./Dropdown/DropdownMenu";
@@ -8,6 +9,7 @@ import DropdownMenu from "./Dropdown/DropdownMenu";
 
 export default function Navbar() {
   const navbarMenu = useToggleClickOutside(false);
+  const { showForm } = useCreateCardFormStore();
   return (
     <div
       id="navbar"
@@ -29,7 +31,7 @@ export default function Navbar() {
               <div
                 id="dropdown-item-group"
                 className="flex justify-start border-t py-2">
-                <button className="text-start">Create Card</button>
+                <button className="text-start" onClick={showForm}>Create Card</button>
               </div>
             </DropdownMenu>)}
         </Dropdown>
